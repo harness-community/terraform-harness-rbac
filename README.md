@@ -46,10 +46,7 @@ module "harness_rbac" {
 Create and manage new Harness Platform Roles.  Read more about this module in the [README](modules/roles/README.md)
 
 ### Resource Groups
-Create and manage new Harness Platform Resource Groups.  Read more about this module in the [README](modules/resource_groupss/README.md)
-
-### Service Accounts
-Create and manage new Harness Platform Service Accounts.  Read more about this module in the [README](modules/service_accounts/README.md)
+Create and manage new Harness Platform Resource Groups.  Read more about this module in the [README](modules/resource_groups/README.md)
 
 ### User Groups
 Create and manage new Harness Platform User Groups.  Read more about this module in the [README](modules/user_groups/README.md)
