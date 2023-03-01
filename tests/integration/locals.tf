@@ -1,8 +1,8 @@
 locals {
-  organization_id = harness_platform_organization.test.id
+  organization_id           = harness_platform_organization.test.id
   organization_secondary_id = harness_platform_organization.secondary.id
-  project_id      = harness_platform_project.test.id
-  project_secondary_id = harness_platform_project.secondary.id
+  project_id                = harness_platform_project.test.id
+  project_secondary_id      = harness_platform_project.secondary.id
   fmt_prefix = (
     lower(
       replace(

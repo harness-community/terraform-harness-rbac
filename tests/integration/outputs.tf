@@ -5,3 +5,7 @@ output "resource_groups" {
 output "roles" {
   value = local.role_outputs
 }
+
+output "user_groups" {
+  value = local.user_group_outputs
+}

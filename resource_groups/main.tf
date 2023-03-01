@@ -77,7 +77,7 @@ resource "harness_platform_resource_group" "rg" {
             attribute_values = flatten([
               try(
                 flatten([
-                  for value in split(",",lookup(attribute_filter.value, "values", "")) : [
+                  for value in split(",", lookup(attribute_filter.value, "values", "")) : [
                     trimspace(value)
                   ]
                 ]),

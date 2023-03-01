@@ -70,9 +70,9 @@ module "resource_groups_custom_scope" {
   project_id               = local.project_id
   resource_group_scopes = [
     {
-      filter = "EXCLUDING_CHILD_SCOPES"
-      organization_id          = local.organization_id
-      project_id               = local.project_id
+      filter          = "EXCLUDING_CHILD_SCOPES"
+      organization_id = local.organization_id
+      project_id      = local.project_id
     }
   ]
   global_tags = local.common_tags
@@ -87,14 +87,14 @@ module "resource_groups_custom_scope_project" {
   organization_id          = local.organization_id
   resource_group_scopes = [
     {
-      filter = "EXCLUDING_CHILD_SCOPES"
-      organization_id          = local.organization_id
-      project_id               = local.project_id
+      filter          = "EXCLUDING_CHILD_SCOPES"
+      organization_id = local.organization_id
+      project_id      = local.project_id
     },
     {
-      filter = "EXCLUDING_CHILD_SCOPES"
-      organization_id          = local.organization_id
-      project_id               = local.project_secondary_id
+      filter          = "EXCLUDING_CHILD_SCOPES"
+      organization_id = local.organization_id
+      project_id      = local.project_secondary_id
     }
   ]
   global_tags = local.common_tags
@@ -108,13 +108,13 @@ module "resource_groups_custom_scope_org" {
   name                     = "${local.organization_id}-test-resource-group-custom-scope-multiple-org"
   resource_group_scopes = [
     {
-      filter = "EXCLUDING_CHILD_SCOPES"
-      organization_id          = local.organization_id
-      project_id               = local.project_id
+      filter          = "EXCLUDING_CHILD_SCOPES"
+      organization_id = local.organization_id
+      project_id      = local.project_id
     },
     {
-      filter = "INCLUDING_CHILD_SCOPES"
-      organization_id          = local.organization_secondary_id
+      filter          = "INCLUDING_CHILD_SCOPES"
+      organization_id = local.organization_secondary_id
     }
   ]
   global_tags = local.common_tags
@@ -132,7 +132,7 @@ module "resource_groups_resource_filters" {
   global_tags              = local.common_tags
   resource_group_filters = [
     {
-        type = "PIPELINE"
+      type = "PIPELINE"
     }
   ]
 }
@@ -148,10 +148,10 @@ module "resource_groups_resource_filter_with_identifiers" {
   global_tags              = local.common_tags
   resource_group_filters = [
     {
-        type = "RESOURCEGROUP"
-        identifiers = [
-          "test_resource_group_resource_filters"
-        ]
+      type = "RESOURCEGROUP"
+      identifiers = [
+        "test_resource_group_resource_filters"
+      ]
     }
   ]
 }
@@ -166,24 +166,24 @@ module "resource_groups_resource_filter_with_filters" {
   global_tags              = local.common_tags
   resource_group_filters = [
     {
-        type = "ENVIRONMENT"
-        filters = [
-            {
-                name = "type"
-                values = [
-                  "PreProduction"
-                ]
-            }
-        ]
+      type = "ENVIRONMENT"
+      filters = [
+        {
+          name = "type"
+          values = [
+            "PreProduction"
+          ]
+        }
+      ]
     },
     {
-        type = "CONNECTOR"
-        filters = [
-            {
-                name = "category"
-                values = "CLOUD_PROVIDER, SECRET_MANAGER"
-            }
-        ]
+      type = "CONNECTOR"
+      filters = [
+        {
+          name   = "category"
+          values = "CLOUD_PROVIDER, SECRET_MANAGER"
+        }
+      ]
     }
   ]
 

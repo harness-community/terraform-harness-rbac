@@ -45,13 +45,13 @@ locals {
   allowed_scope_levels = flatten([
     var.project_id != null
     ?
-      "project"
+    "project"
     :
-      var.organization_id != null
-      ?
-        "organization"
-      :
-        "account"
+    var.organization_id != null
+    ?
+    "organization"
+    :
+    "account"
   ])
 
   # ~ ROLE MANAGEMENT ~
@@ -93,33 +93,33 @@ locals {
   permission_validation = (
     var.organization_id == null && var.project_id == null
     ?
-      length(local.invalid_global_permissions) > 0
-      ?
-        local.invalid_global_permissions
-      :
-        []
+    length(local.invalid_global_permissions) > 0
+    ?
+    local.invalid_global_permissions
     :
+    []
+    :
+    (
+      var.organization_id != null && var.project_id == null
+      ?
+      length(local.invalid_organization_permissions) > 0
+      ?
+      local.invalid_organization_permissions
+      :
+      []
+      :
       (
-        var.organization_id != null && var.project_id == null
+        var.project_id != null
         ?
-          length(local.invalid_organization_permissions) > 0
-          ?
-            local.invalid_organization_permissions
-          :
-            []
+        length(local.invalid_project_permissions) > 0
+        ?
+        local.invalid_project_permissions
         :
-          (
-            var.project_id != null
-            ?
-              length(local.invalid_project_permissions) > 0
-              ?
-                local.invalid_project_permissions
-              :
-                []
-            :
-              []
-          )
+        []
+        :
+        []
       )
+    )
   )
 
 }

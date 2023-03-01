@@ -1,12 +1,8 @@
 ####################
 #
-# Harness Resource Group Variables
+# Harness User Group Variables
 #
 ####################
-variable "harness_platform_account" {
-  type        = string
-  description = "[Required] Enter the Harness Platform Account Number"
-}
 variable "identifier" {
   type        = string
   description = "[Optional] Provide a custom identifier.  More than 2 but less than 128 characters and can only include alphanumeric or '_'"
@@ -81,25 +77,6 @@ variable "project_id" {
   }
 }
 
-variable "color" {
-  type        = string
-  description = "[Optional] (String) Color of the Environment."
-  default     = null
-
-  validation {
-    condition = (
-      anytrue([
-        can(regex("^#([A-Fa-f0-9]{6})", var.color)),
-        var.color == null
-      ])
-    )
-    error_message = <<EOF
-        Validation of an object failed.
-            * [Optional] Provide Pipeline Color Identifier.  Must be a valid Hex Color code.
-        EOF
-  }
-}
-
 variable "description" {
   type        = string
   description = "[Optional] (String) Description of the resource."
@@ -116,73 +93,55 @@ variable "description" {
   }
 }
 
-variable "resource_group_scopes" {
-  type        = list(any)
-  description = "[Optional] (List of Maps) The scope levels at which this role can be used"
+variable "user_email_addresses" {
+  type        = list(string)
+  description = "[Optional] List of user emails in the UserGroup. Either provide list of users or list of user emails"
   default     = []
 
   validation {
     condition = (
       alltrue([
-        for scope in var.resource_group_scopes : (
-          contains(["EXCLUDING_CHILD_SCOPES", "INCLUDING_CHILD_SCOPES"], lookup(scope, "filter", "INCLUDING_CHILD_SCOPES")) &&
-          (lookup(scope, "organization_id", null) != null ? length(scope.organization_id) > 2 : true) &&
-          (lookup(scope, "project_id", null) != null ? length(scope.project_id) > 2 : true)
+        for email in var.user_email_addresses : (
+          can(regex("[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", email))
         )
       ])
     )
     error_message = <<EOF
         Validation of an object failed.
-        [Optional] (List of Maps) The scope levels at which this role can be used
-            * [Optional] (String) filter - (String) Can be one of these 2 EXCLUDING_CHILD_SCOPES or INCLUDING_CHILD_SCOPES
-            * [Optional] (String) organization_id - (String) Organization Identifier
-            * [Optional] (String) project_id - (String) Project Identifier
+      * [Optional] List of user emails in the UserGroup.
+        Note: All Email addresses need to be valid and at least one or more failed validation
         EOF
   }
 }
 
-variable "resource_group_filters" {
-  type        = any
-  description = "[Optional] (List of Maps) The resource group filters to apply"
+variable "user_names" {
+  type        = list(string)
+  description = "[Optional] List of users in the UserGroup. Either provide list of users or list of user emails."
   default     = []
+}
 
-  validation {
-    condition = (
-      alltrue([
-        for filter in var.resource_group_filters : (
-          (lookup(filter, "type", null) != null ? length(filter.type) > 2 : false) &&
-          (
-            lookup(filter, "identifiers", null) != null
-            ?
-            can(filter.identifiers[0])
-            :
-            true
-          ) &&
-          (
-            lookup(filter, "filters", null) != null
-            ?
-            length(flatten([
-              for filter in filter.filters : [
-                true
-              ] if lookup(filter, "name", null) != null &&
-              lookup(filter, "values", null) != null
-            ])) > 0
-            :
-            true
-          )
-        )
-      ])
-    )
-    error_message = <<EOF
-        Validation of an object failed.
-        [Optional] (List of Maps) The scope levels at which this role can be used
-            * [Required] (String) type - (String) Must be a valid Harness Resource Type
-            * [Optional] (String) identifiers - (Set of String) List of the identifiers
-            * [Optional] (String) filters - (Set of Maps) Filter Definitions
-              * [Required] (String) name - (String) Name of the attribute
-              * [Required] (String) values - (Set of String) Value of the attributes
-        EOF
-  }
+variable "resource_group_id" {
+  type        = string
+  description = "[Optional] Resource group identifier."
+  default     = null
+}
+
+variable "role_id" {
+  type        = string
+  description = "[Optional] Role identifier."
+  default     = null
+}
+
+variable "is_enabled" {
+  type        = bool
+  description = "[Optional] Should the role binding be enabled?"
+  default     = true
+}
+
+variable "is_managed" {
+  type        = bool
+  description = "[Optional] Should the role binding be managed?"
+  default     = false
 }
 
 variable "tags" {
