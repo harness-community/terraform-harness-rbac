@@ -40,7 +40,7 @@ _Note: When the identifier variable is not provided, the module will automatical
 ### Build a single User Group with no members at account level
 ```
 module "user_groups" {
-  source = "git@github.com:harness-community/terraform-harness-delivery.git//user_groups"
+  source = "git@github.com:harness-community/terraform-harness-rbac.git//modules/user_groups"
 
   name             = "test-group"
 }
@@ -48,7 +48,7 @@ module "user_groups" {
 ### Build a single User Group with email_addresses at organization level
 ```
 module "user_groups" {
-  source = "git@github.com:harness-community/terraform-harness-delivery.git//user_groups"
+  source = "git@github.com:harness-community/terraform-harness-rbac.git//modules/user_groups"
 
   name             = "test-group"
   organization_id  = "myorg"
@@ -62,7 +62,7 @@ module "user_groups" {
 ### Build a single User Group with user_names at organization level
 ```
 module "user_groups" {
-  source = "git@github.com:harness-community/terraform-harness-delivery.git//user_groups"
+  source = "git@github.com:harness-community/terraform-harness-rbac.git//modules/user_groups"
 
   name             = "test-group"
   organization_id  = "myorg"
@@ -76,7 +76,7 @@ module "user_groups" {
 ### Build a single Role with minimal inputs at project level
 ```
 module "roles" {
-  source = "git@github.com:harness-community/terraform-harness-delivery.git//roles"
+  source = "git@github.com:harness-community/terraform-harness-rbac.git//modules/roles"
 
   name             = "test-role"
   organization_id  = "myorg"

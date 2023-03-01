@@ -19,7 +19,7 @@ locals {
 
 module "resource_groups_minimal" {
 
-  source = "../../resource_groups"
+  source = "../../modules/resource_groups"
 
   harness_platform_account = var.harness_platform_account
   name                     = "test-resource-group-minimal"
@@ -30,7 +30,7 @@ module "resource_groups_minimal" {
 }
 module "resource_groups_minimal_org_level" {
 
-  source = "../../resource_groups"
+  source = "../../modules/resource_groups"
 
   harness_platform_account = var.harness_platform_account
   name                     = "${local.organization_id}-test-resource-group-minimal"
@@ -40,7 +40,7 @@ module "resource_groups_minimal_org_level" {
 }
 module "resource_groups_minimal_account_level" {
 
-  source = "../../resource_groups"
+  source = "../../modules/resource_groups"
 
   harness_platform_account = var.harness_platform_account
   name                     = "${local.organization_id}-test-resource-group-minimal"
@@ -50,7 +50,7 @@ module "resource_groups_minimal_account_level" {
 
 module "resource_groups_custom_scope_single" {
 
-  source = "../../resource_groups"
+  source = "../../modules/resource_groups"
 
   harness_platform_account = var.harness_platform_account
   name                     = "${local.organization_id}-test-resource-group-custom-scope-single"
@@ -62,7 +62,7 @@ module "resource_groups_custom_scope_single" {
 }
 module "resource_groups_custom_scope" {
 
-  source = "../../resource_groups"
+  source = "../../modules/resource_groups"
 
   harness_platform_account = var.harness_platform_account
   name                     = "${local.organization_id}-test-resource-group-custom-scope-multiple"
@@ -80,7 +80,7 @@ module "resource_groups_custom_scope" {
 }
 module "resource_groups_custom_scope_project" {
 
-  source = "../../resource_groups"
+  source = "../../modules/resource_groups"
 
   harness_platform_account = var.harness_platform_account
   name                     = "${local.organization_id}-test-resource-group-custom-scope-multiple-project"
@@ -102,7 +102,7 @@ module "resource_groups_custom_scope_project" {
 }
 module "resource_groups_custom_scope_org" {
 
-  source = "../../resource_groups"
+  source = "../../modules/resource_groups"
 
   harness_platform_account = var.harness_platform_account
   name                     = "${local.organization_id}-test-resource-group-custom-scope-multiple-org"
@@ -123,7 +123,7 @@ module "resource_groups_custom_scope_org" {
 
 module "resource_groups_resource_filters" {
 
-  source = "../../resource_groups"
+  source = "../../modules/resource_groups"
 
   harness_platform_account = var.harness_platform_account
   name                     = "test-resource-group-resource-filters"
@@ -138,7 +138,7 @@ module "resource_groups_resource_filters" {
 }
 module "resource_groups_resource_filter_with_identifiers" {
 
-  source = "../../resource_groups"
+  source = "../../modules/resource_groups"
 
   harness_platform_account = var.harness_platform_account
   identifier               = "test_resource_group_resource_filter_identifier"
@@ -157,7 +157,7 @@ module "resource_groups_resource_filter_with_identifiers" {
 }
 module "resource_groups_resource_filter_with_filters" {
 
-  source = "../../resource_groups"
+  source = "../../modules/resource_groups"
 
   harness_platform_account = var.harness_platform_account
   name                     = "test-resource-group-resource-filter-with-filters"

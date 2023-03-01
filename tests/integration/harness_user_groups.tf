@@ -19,7 +19,7 @@ locals {
 
 module "user_groups_minimal" {
 
-  source = "../../user_groups"
+  source = "../../modules/user_groups"
 
   name            = "test-user-group-minimal"
   organization_id = local.organization_id
@@ -30,7 +30,7 @@ module "user_groups_minimal" {
 
 module "user_groups_minimal_org" {
 
-  source = "../../user_groups"
+  source = "../../modules/user_groups"
 
   name            = "test-user-group-minimal-org"
   organization_id = local.organization_id
@@ -40,7 +40,7 @@ module "user_groups_minimal_org" {
 
 module "user_groups_minimal_account" {
 
-  source = "../../user_groups"
+  source = "../../modules/user_groups"
 
   name        = "${local.organization_id}-test-user-group-minimal-account"
   global_tags = local.common_tags
@@ -49,7 +49,7 @@ module "user_groups_minimal_account" {
 
 module "user_groups_email_membership" {
 
-  source = "../../user_groups"
+  source = "../../modules/user_groups"
 
   name                 = "test-user-group-with-email"
   organization_id      = local.organization_id
@@ -61,7 +61,7 @@ module "user_groups_email_membership" {
 
 module "user_groups_username_membership" {
 
-  source = "../../user_groups"
+  source = "../../modules/user_groups"
 
   name            = "test-user-group-with-username"
   organization_id = local.organization_id
@@ -73,7 +73,7 @@ module "user_groups_username_membership" {
 
 module "user_groups_role_binding" {
 
-  source = "../../user_groups"
+  source = "../../modules/user_groups"
 
   name                 = "test-user-group-with-role-binding"
   organization_id      = local.organization_id

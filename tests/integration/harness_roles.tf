@@ -16,7 +16,7 @@ locals {
 
 module "roles_minimal" {
 
-  source = "../../roles"
+  source = "../../modules/roles"
 
   name            = "test-role-minimal"
   organization_id = local.organization_id
@@ -27,7 +27,7 @@ module "roles_minimal" {
 
 module "roles_minimal_org" {
 
-  source = "../../roles"
+  source = "../../modules/roles"
 
   name            = "test-role-minimal-org"
   organization_id = local.organization_id
@@ -37,7 +37,7 @@ module "roles_minimal_org" {
 
 module "roles_minimal_account" {
 
-  source = "../../roles"
+  source = "../../modules/roles"
 
   name        = "${local.organization_id}-test-role-minimal-account"
   global_tags = local.common_tags
@@ -46,7 +46,7 @@ module "roles_minimal_account" {
 
 module "roles_minimal_custom_permissions" {
 
-  source = "../../roles"
+  source = "../../modules/roles"
 
   name             = "test-role-custom-permissions"
   organization_id  = local.organization_id

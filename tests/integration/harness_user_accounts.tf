@@ -17,7 +17,7 @@ locals {
 #
 # module "user_accounts_minimal" {
 
-#   source = "../../user_accounts"
+#   source = "../../modules/user_accounts"
 
 #   name            = "test-user-account-minimal"
 #   email_address   = "jeremy.goodrum+test@harness.io"

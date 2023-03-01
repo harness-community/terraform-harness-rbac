@@ -39,7 +39,7 @@ terraform {
 ### Build a single User Account at account level
 ```
 module "user_accounts" {
-  source = "git@github.com:harness-community/terraform-harness-delivery.git//user_accounts"
+  source = "git@github.com:harness-community/terraform-harness-rbac.git//modules/user_accounts"
 
   email_address = "john.doe@example.com"
   user_groups   = [

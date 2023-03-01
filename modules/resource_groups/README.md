@@ -67,7 +67,7 @@ _Note: When the identifier variable is not provided, the module will automatical
 ### Build a single Resource Group with minimal inputs at account level
 ```
 module "resource_groups" {
-  source = "git@github.com:harness-community/terraform-harness-delivery.git//resource_groups"
+  source = "git@github.com:harness-community/terraform-harness-rbac.git//modules/resource_groups"
 
   harness_platform_account = "my-harness-account-id"
   name                     = "test-resource-group"
@@ -77,7 +77,7 @@ module "resource_groups" {
 ### Build a single Resource Group with minimal inputs at project level
 ```
 module "resource_groups" {
-  source = "git@github.com:harness-community/terraform-harness-delivery.git//resource_groups"
+  source = "git@github.com:harness-community/terraform-harness-rbac.git//modules/resource_groups"
 
   harness_platform_account = "my-harness-account-id"
   name                     = "test-resource-group"
@@ -90,7 +90,7 @@ module "resource_groups" {
 ### Build a single Resource Group with resource propagation
 ```
 module "resource_groups_custom_scope_single" {
-  source = "git@github.com:harness-community/terraform-harness-delivery.git//resource_groups"
+  source = "git@github.com:harness-community/terraform-harness-rbac.git//modules/resource_groups"
 
   harness_platform_account = "my-harness-account-id"
   name                     = "test-resource-group"
@@ -105,7 +105,7 @@ module "resource_groups_custom_scope_single" {
 ### Build a single Resource Group without resource propagation
 ```
 module "resource_groups_custom_scope_single" {
-  source = "git@github.com:harness-community/terraform-harness-delivery.git//resource_groups"
+  source = "git@github.com:harness-community/terraform-harness-rbac.git//modules/resource_groups"
 
   harness_platform_account = "my-harness-account-id"
   name                     = "test-resource-group"
@@ -120,7 +120,7 @@ module "resource_groups_custom_scope_single" {
 ### Build a single Resource Group with a custom scope to a Project
 ```
 module "resource_groups_custom_scope" {
-  source = "git@github.com:harness-community/terraform-harness-delivery.git//resource_groups"
+  source = "git@github.com:harness-community/terraform-harness-rbac.git//modules/resource_groups"
 
   harness_platform_account = "my-harness-account-id"
   name                     = "test-resource-group-custom-scope"

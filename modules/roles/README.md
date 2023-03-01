@@ -41,7 +41,7 @@ _Note: When the identifier variable is not provided, the module will automatical
 ### Build a single Role with minimal inputs at account level
 ```
 module "roles" {
-  source = "git@github.com:harness-community/terraform-harness-delivery.git//roles"
+  source = "git@github.com:harness-community/terraform-harness-rbac.git//modules/roles"
 
   name             = "test-role"
   role_permissions = [ "core_environment_access", "core_connector_access"]
@@ -50,7 +50,7 @@ module "roles" {
 ### Build a single Role with minimal inputs at project level
 ```
 module "roles" {
-  source = "git@github.com:harness-community/terraform-harness-delivery.git//roles"
+  source = "git@github.com:harness-community/terraform-harness-rbac.git//modules/roles"
 
   name             = "test-role"
   organization_id  = "myorg"
