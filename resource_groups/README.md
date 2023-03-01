@@ -64,121 +64,113 @@ _Note: When the identifier variable is not provided, the module will automatical
 
 
 ## Examples
-### Build a single Environment with minimal inputs using rendered payload
+### Build a single Resource Group with minimal inputs at account level
 ```
-module "environments" {
-  source = "git@github.com:harness-community/terraform-harness-delivery.git//environments"
+module "resource_groups" {
+  source = "git@github.com:harness-community/terraform-harness-delivery.git//resource_groups"
 
-  name             = "test-environment"
-  organization_id  = "myorg"
-  project_id       = "myproject"
-  type             = "nonprod"
-}
-```
-
-### Build a single Environment with yaml_file overrides using rendered payload
-```
-module "templates" {
-  source = "git@github.com:harness-community/terraform-harness-content.git//templates"
-
-  name             = "test-example"
-  organization_id  = "myorg"
-  project_id       = "myproject"
-  type             = "nonprod"
-  yaml_file        = "templates/test-example.yaml"
+  harness_platform_account = "my-harness-account-id"
+  name                     = "test-resource-group"
 
 }
 ```
-
-### Build a single Environment with raw yaml_data
+### Build a single Resource Group with minimal inputs at project level
 ```
-module "templates" {
-  source = "git@github.com:harness-community/terraform-harness-content.git//templates"
+module "resource_groups" {
+  source = "git@github.com:harness-community/terraform-harness-delivery.git//resource_groups"
 
-  name             = "test-example"
-  organization_id  = "myorg"
-  project_id       = "myproject"
-  type             = "nonprod"
-  yaml_render      = false
-  yaml_data        = <<EOT
-  environment:
-    name: test-example
-    identifier: test_example
-    projectIdentifier: myproject
-    orgIdentifier: myorg
-    description: Harness Environment created via Terraform
-    type: PreProduction
-    overrides:
-      manifests:
-      - manifest:
-          identifier: manifestEnv
-          spec:
-            store:
-              spec:
-                branch: master
-                connectorRef: <+input>
-                gitFetchType: Branch
-                paths:
-                - file1
-                repoName: <+input>
-              type: Git
-          type: Values
-  EOT
+  harness_platform_account = "my-harness-account-id"
+  name                     = "test-resource-group"
+  organization_id          = "myorg"
+  project_id               = "myproject"
 
 }
 ```
 
-### Build multiple Environments
+### Build a single Resource Group with resource propagation
 ```
-variable "environment_list" {
-    type = list(map())
-    default = [
-        {
-            name        = "cloud1"
-            tags        = {
-                role    = "nonprod-cloud1"
-            }
-        },
-        {
-            name        = "cloud1-prod"
-            description = "Production Environment in Cloud1"
-            type        = "prod"
-            yaml_file   = "templates/environments/cloud1-prod-overrides.yaml"
-            tags        = {
-                role    = "prod-cloud1"
-            }
-        },
-        {
-            name        = "cloud2"
-            type        = "nonprod"
-            yaml_render = false
-            yaml_file   = "templates/environments/cloud2-nonprod-full.yaml"
-            tags        = {
-                role    = "nonprod-cloud2"
-            }
-        }
-    ]
-}
+module "resource_groups_custom_scope_single" {
+  source = "git@github.com:harness-community/terraform-harness-delivery.git//resource_groups"
 
-variable "global_tags" {
-    type = map()
-    default = {
-        environment = "NonProd"
+  harness_platform_account = "my-harness-account-id"
+  name                     = "test-resource-group"
+  resource_group_scopes = [{
+    filter = "INCLUDING_CHILD_SCOPES"
+  }]
+  global_tags = local.common_tags
+
+}
+```
+
+### Build a single Resource Group without resource propagation
+```
+module "resource_groups_custom_scope_single" {
+  source = "git@github.com:harness-community/terraform-harness-delivery.git//resource_groups"
+
+  harness_platform_account = "my-harness-account-id"
+  name                     = "test-resource-group"
+  resource_group_scopes = [{
+    filter = "EXCLUDING_CHILD_SCOPES"
+  }]
+  global_tags = local.common_tags
+
+}
+```
+
+### Build a single Resource Group with a custom scope to a Project
+```
+module "resource_groups_custom_scope" {
+  source = "git@github.com:harness-community/terraform-harness-delivery.git//resource_groups"
+
+  harness_platform_account = "my-harness-account-id"
+  name                     = "test-resource-group-custom-scope"
+  organization_id          = "myorg"
+  project_id               = "myproject"
+  resource_group_scopes = [
+    {
+      filter = "EXCLUDING_CHILD_SCOPES"
+      organization_id          = "myorg"
+      project_id               = "myproject"
     }
+  ]
+  global_tags = local.common_tags
+
 }
+```
 
-module "environments" {
-  source = "git@github.com:harness-community/terraform-harness-content.git//environments"
-  for_each = { for environment in var.environment_list : environment.name => environment }
+### Build a single Resource Group with multiple resource filters
+```module "resource_groups_resource_filter_with_filters" {
 
-  name             = each.value.name
-  description      = lookup(each.value, "description", "Harness Environment for ${each.value.name}")
-  type             = lookup(each.value, "type", "nonprod")
-  yaml_render      = lookup(each.value, "render", true)
-  yaml_file        = lookup(each.value, "yaml_file", null)
-  yaml_data        = lookup(each.value, "yaml_data", null)
-  tags             = lookup(each.value, "tags", {})
-  global_tags      = var.global_tags
+  source = "../../resource_groups"
+
+  harness_platform_account = "my-harness-account-id"
+  name                     = "test-resource-group-with-filters"
+  organization_id          = "myorg"
+  project_id               = "myproject"
+  global_tags              = local.common_tags
+  resource_group_filters = [
+    {
+        type = "ENVIRONMENT"
+        filters = [
+            {
+                name = "type"
+                values = [
+                  "PreProduction"
+                ]
+            }
+        ]
+    },
+    {
+        type = "CONNECTOR"
+        filters = [
+            {
+                name = "category"
+                values = "CLOUD_PROVIDER, SECRET_MANAGER"
+            }
+        ]
+    }
+  ]
+
 }
 ```
 
