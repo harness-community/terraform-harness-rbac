@@ -2,6 +2,7 @@
 # - harness_resource_groups.tf
 # - harness_roles.tf
 # - harness_user_groups.tf
+# - harness_user_accounts.tf
 
 # Create Testing infrastructure
 resource "harness_platform_organization" "test" {

@@ -9,3 +9,7 @@ output "roles" {
 output "user_groups" {
   value = local.user_group_outputs
 }
+
+output "user_accounts" {
+  value = local.user_account_outputs
+}
