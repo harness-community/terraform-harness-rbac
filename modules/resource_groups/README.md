@@ -62,6 +62,11 @@ _Note: When the identifier variable is not provided, the module will automatical
 | name | [Required] Name of the attribute | string | | X |
 | values | [Required] Value of the attributes | list | | X |
 
+## Outputs
+| Name | Description | Value |
+| --- | --- | --- |
+| details | Details for the created Harness resource group | Map containing details of created resource group
+| resource_group_details | [Deprecated] Details for the created Harness resource group | Map containing details of created resource group
 
 ## Examples
 ### Build a single Resource Group with minimal inputs at account level
