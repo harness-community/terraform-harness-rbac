@@ -36,6 +36,11 @@ _Note: When the identifier variable is not provided, the module will automatical
 | tags | [Optional] Provide a Map of Tags to associate with the project | map(any) | {} | |
 | global_tags | [Optional] Provide a Map of Tags to associate with the project and resources created | map(any) | {} | |
 
+## Outputs
+| Name | Description | Value |
+| --- | --- | --- |
+| details | Details for the created Harness role | Map containing details of created role
+| role_details | [Deprecated] Details for the created Harness role | Map containing details of created role
 
 ## Examples
 ### Build a single Role with minimal inputs at account level

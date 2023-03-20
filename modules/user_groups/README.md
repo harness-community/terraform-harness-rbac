@@ -35,6 +35,11 @@ _Note: When the identifier variable is not provided, the module will automatical
 | tags | [Optional] Provide a Map of Tags to associate with the project | map(any) | {} | |
 | global_tags | [Optional] Provide a Map of Tags to associate with the project and resources created | map(any) | {} | |
 
+## Outputs
+| Name | Description | Value |
+| --- | --- | --- |
+| details | Details for the created Harness user group | Map containing details of created user group
+| user_group_details | [Deprecated] Details for the created Harness user group | Map containing details of created user group
 
 ## Examples
 ### Build a single User Group with no members at account level

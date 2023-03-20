@@ -17,6 +17,6 @@ data "harness_platform_organization" "org" {
 
 
 data "harness_platform_project" "project" {
-  name = var.project_name
+  name   = var.project_name
   org_id = data.harness_platform_organization.org.id
 }

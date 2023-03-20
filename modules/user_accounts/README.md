@@ -35,6 +35,12 @@ terraform {
 | role_id | [Required] Role Identifier for the user | string | | X |
 | is_managed | [Optional] Is this a Harness Managed Role? | boolean | true | |
 
+## Outputs
+| Name | Description | Value |
+| --- | --- | --- |
+| details | Details for the created Harness user account | Map containing details of created user account
+| user_account_details | [Deprecated] Details for the created Harness user account | Map containing details of created user account
+
 ## Examples
 ### Build a single User Account at account level
 ```

@@ -11,6 +11,9 @@ endif
 ifeq ($(DOCKER_COMMAND),)
 	DOCKER_COMMAND=docker
 endif
+ifeq ($(TERRAFORM_VERSION),)
+	TERRAFORM_VERSION=latest
+endif
 ifeq ($(DOCKER_IMAGE),)
 	DOCKER_IMAGE=hashicorp/terraform
 endif
@@ -30,7 +33,7 @@ ifeq ($(RESOURCE),)
 	RESOURCE:=
 endif
 WORKDIR=/project
-DOCKER_RUN=${DOCKER_COMMAND} run --rm -it ${DOCKER_ENV} -v ${PROJECT_DIR}:/project ${DOCKER_MOUNTS} -w ${WORKDIR}/${TEMPLATE_DIR} $(ENTRYPOINT) ${DOCKER_IMAGE}
+DOCKER_RUN=${DOCKER_COMMAND} run --rm -it ${DOCKER_ENV} -v ${PROJECT_DIR}:/project ${DOCKER_MOUNTS} -w ${WORKDIR}/${TEMPLATE_DIR} $(ENTRYPOINT) ${DOCKER_IMAGE}:${TERRAFORM_VERSION}
 
 .PHONY: debug
 debug:
@@ -42,7 +45,7 @@ init:
 	${DOCKER_RUN} init
 
 .PHONY: plan
-plan:
+plan: fmt
 	${DOCKER_RUN} plan
 
 .PHONY: apply
@@ -78,3 +81,20 @@ cycle: destroy apply plan
 
 .PHONY: teardown
 teardown: destroy testing_cleanup
+
+.PHONY: all
+all: init plan apply destroy testing_cleanup
+
+.PHONY: full_suite
+full_suite:
+	@(for version in `cat .terraform_versions`; do \
+		echo "Running Full Suite tests for Terraform Version: $$version"; \
+		make all TERRAFORM_VERSION=$$version; \
+		error_code="$$?"; \
+		case "$$error_code" in \
+		2) \
+		 echo "Failed to run tests on version: $$version"; \
+		 echo "$$error_code"; \
+		 exit 1; \
+		esac; \
+	done;)

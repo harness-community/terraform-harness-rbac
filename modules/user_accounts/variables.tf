@@ -79,9 +79,9 @@ variable "role_bindings" {
           (
             lookup(role_binding, "is_managed", null) != null
             ?
-              contains([true, false], role_binding.is_managed)
+            contains([true, false], role_binding.is_managed)
             :
-              true
+            true
           )
         )
       ])

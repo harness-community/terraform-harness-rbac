@@ -83,17 +83,17 @@ resource "harness_platform_role_assignments" "binding" {
   resource_group_identifier = var.resource_group_id
 
   # [Optional] (String) Role identifier.
-  role_identifier           = var.role_id
+  role_identifier = var.role_id
 
   principal {
-    identifier = harness_platform_usergroup.group.id
+    identifier  = harness_platform_usergroup.group.id
     scope_level = local.allowed_scope_levels
-    type       = "USER_GROUP"
+    type        = "USER_GROUP"
   }
 
   # [Optional] (Boolean) Disabled or not.
   disabled = var.is_enabled ? false : true
 
   # [Optional] (Boolean) Managed or not.
-  managed  = var.is_managed
+  managed = var.is_managed
 }
