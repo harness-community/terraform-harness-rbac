@@ -57,13 +57,13 @@ locals {
   binding_validation = (
     var.resource_group_id != null && var.role_id != null
     ?
-      true
+    true
     :
-      var.resource_group_id != null || var.role_id != null
-      ?
-        false
-      :
-        true
+    var.resource_group_id != null || var.role_id != null
+    ?
+    false
+    :
+    true
   )
 
 }

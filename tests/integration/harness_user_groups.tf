@@ -6,7 +6,7 @@
 locals {
   user_group_outputs = flatten([
     {
-      test = true
+      test                = true
       minimum             = module.user_groups_minimal.user_group_details
       minimal_org         = module.user_groups_minimal_org.user_group_details
       minimal_account     = module.user_groups_minimal_account.user_group_details
@@ -75,11 +75,11 @@ module "user_groups_role_binding" {
 
   source = "../../modules/user_groups"
 
-  name                 = "test-user-group-with-role-binding"
-  organization_id      = local.organization_id
-  project_id           = local.project_id
-  role_id              = "_project_admin"
-  resource_group_id    = "_all_project_level_resources"
-  global_tags          = local.common_tags
+  name              = "test-user-group-with-role-binding"
+  organization_id   = local.organization_id
+  project_id        = local.project_id
+  role_id           = "_project_admin"
+  resource_group_id = "_all_project_level_resources"
+  global_tags       = local.common_tags
 
 }
