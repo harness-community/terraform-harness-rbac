@@ -4,17 +4,73 @@ Terraform Module for creating and managing Harness User Groups
 ## Summary
 This module handle the creation and managment of User Groups by leveraging the Harness Terraform provider
 
-## Providers
+## Supported Terraform Versions
+_Note: These modules require a minimum of Terraform Version 1.2.0 to support the Input Validations and Precondition Lifecycle hooks leveraged in the code._
 
+_Note: The list of supported Terraform Versions is based on the most recent of each release which has been tested against this module._
+
+    - v1.2.9
+    - v1.3.9
+    - v1.4.0
+    - v1.4.2
+    - v1.4.3
+    - v1.4.4
+    - v1.4.5
+    - v1.4.6
+
+_Note: Terraform version 1.4.1 will not work due to an issue with the Random provider_
+
+## Providers
+This module requires that the calling template has defined the [Harness Provider - Docs](https://registry.terraform.io/providers/harness/harness/latest/docs) authentication.
+
+### Example setup of the Harness Provider Authentication with environment variables
+You can also set up authentication with Harness through environment variables. To do this set the following items in your environment:
+- HARNESS_ENDPOINT: Harness Platform URL, defaults to Harness SaaS URL: https://app.harness.io/gateway
+- HARNESS_ACCOUNT_ID: Harness Platform Account Number
+- HARNESS_PLATFORM_API_KEY: Harness Platform API Key for your account
+
+### Example setup of the Harness Provider
+```
+# Provider Setup Details
+variable "harness_platform_url" {
+  type        = string
+  description = "[Optional] Enter the Harness Platform URL.  Defaults to Harness SaaS URL"
+  default     = null # If Not passed, then the ENV HARNESS_ENDPOINT will be used or the default value of "https://app.harness.io/gateway"
+}
+
+variable "harness_platform_account" {
+  type        = string
+  description = "[Required] Enter the Harness Platform Account Number"
+  default     = null # If Not passed, then the ENV HARNESS_ACCOUNT_ID will be used
+  sensitive   = true
+}
+
+variable "harness_platform_key" {
+  type        = string
+  description = "[Required] Enter the Harness Platform API Key for your account"
+  default     = null # If Not passed, then the ENV HARNESS_PLATFORM_API_KEY will be used
+  sensitive   = true
+}
+
+provider "harness" {
+  endpoint         = var.harness_platform_url
+  account_id       = var.harness_platform_account
+  platform_api_key = var.harness_platform_key
+}
+
+```
+
+
+### Terraform required providers declaration
 ```
 terraform {
   required_providers {
     harness = {
-      source = "harness/harness"
+      source  = "harness/harness"
+      version = ">= 0.14"
     }
   }
 }
-
 ```
 
 ## Variables
@@ -32,6 +88,9 @@ _Note: When the identifier variable is not provided, the module will automatical
 | user_names | [Optional] (Set of String) List of users in the UserGroup. Either provide list of users or list of user emails | list | [] | |
 | role_id | [Optional] Role to associate with the User Group. | string | null | |
 | resource_group_id | [Optional] Resource Group to associate with the User Group. | string | null | |
+| is_enabled | [Optional] Should the role binding be enabled? | bool | true | |
+| is_managed | [Optional] Should the role binding be managed? | bool | false | |
+| has_binding | [Optional] Should the role binding be created? | bool | false | |
 | tags | [Optional] Provide a Map of Tags to associate with the project | map(any) | {} | |
 | global_tags | [Optional] Provide a Map of Tags to associate with the project and resources created | map(any) | {} | |
 
@@ -45,7 +104,7 @@ _Note: When the identifier variable is not provided, the module will automatical
 ### Build a single User Group with no members at account level
 ```
 module "user_groups" {
-  source = "git@github.com:harness-community/terraform-harness-rbac.git//modules/user_groups"
+  source = "harness-community/rbac/harness//modules/user_groups"
 
   name             = "test-group"
 }
@@ -53,7 +112,7 @@ module "user_groups" {
 ### Build a single User Group with email_addresses at organization level
 ```
 module "user_groups" {
-  source = "git@github.com:harness-community/terraform-harness-rbac.git//modules/user_groups"
+  source = "harness-community/rbac/harness//modules/user_groups"
 
   name             = "test-group"
   organization_id  = "myorg"
@@ -67,7 +126,7 @@ module "user_groups" {
 ### Build a single User Group with user_names at organization level
 ```
 module "user_groups" {
-  source = "git@github.com:harness-community/terraform-harness-rbac.git//modules/user_groups"
+  source = "harness-community/rbac/harness//modules/user_groups"
 
   name             = "test-group"
   organization_id  = "myorg"
@@ -81,7 +140,7 @@ module "user_groups" {
 ### Build a single Role with minimal inputs at project level
 ```
 module "roles" {
-  source = "git@github.com:harness-community/terraform-harness-rbac.git//modules/roles"
+  source = "harness-community/rbac/harness//modules/roles"
 
   name             = "test-role"
   organization_id  = "myorg"
@@ -134,7 +193,7 @@ variable "global_tags" {
 }
 
 module "user_groups" {
-  source = "git@github.com:harness-community/terraform-harness-content.git//user_groups"
+  source = "harness-community/rbac/harness//modules/user_groups"
   for_each = { for user_group in var.user_group_list : user_group.name => user_group }
 
   name             = each.value.name

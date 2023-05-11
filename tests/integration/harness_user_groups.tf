@@ -83,3 +83,17 @@ module "user_groups_role_binding" {
   global_tags       = local.common_tags
 
 }
+
+module "user_groups_no_role_binding" {
+
+  source = "../../modules/user_groups"
+
+  name              = "test-user-group-without-role-binding"
+  organization_id   = local.organization_id
+  project_id        = local.project_id
+  role_id           = "_project_admin"
+  resource_group_id = "_all_project_level_resources"
+  has_binding       = false
+  global_tags       = local.common_tags
+
+}

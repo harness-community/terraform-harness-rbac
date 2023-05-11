@@ -64,13 +64,9 @@ resource "harness_platform_role_assignments" "binding" {
       EOF
     }
   }
-  count = (
-    var.resource_group_id != null && var.role_id != null
-    ?
-    1
-    :
-    0
-  )
+  for_each = {
+    for binding in (var.has_binding ? [local.fmt_identifier] : []) : binding => binding
+  }
   # [Required] (String) Unique identifier of the resource.
   identifier = local.fmt_identifier
 

@@ -36,3 +36,4 @@ override.tf.json
 rendered/.keep
 
 *.local
+**/.terraform.lock.hcl
