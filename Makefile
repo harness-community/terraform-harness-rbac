@@ -32,6 +32,9 @@ endif
 ifeq ($(RESOURCE),)
 	RESOURCE:=
 endif
+ifeq ($(GIT_ORIGIN),)
+	GIT_ORIGIN:=origin
+endif
 WORKDIR=/project
 DOCKER_RUN=${DOCKER_COMMAND} run --rm -it ${DOCKER_ENV} -v ${PROJECT_DIR}:/project ${DOCKER_MOUNTS} -w ${WORKDIR}/${TEMPLATE_DIR} $(ENTRYPOINT) ${DOCKER_IMAGE}:${TERRAFORM_VERSION}
 
@@ -75,6 +78,10 @@ fmt_all:
 .PHONY: testing_cleanup
 testing_cleanup:
 	@(rm -rf ${TEMPLATE_DIR}/.terraform)
+	@(rm -rf ${TEMPLATE_DIR}/.terraform.lock.hcl)
+
+.PHONY: deploy
+deploy: init plan apply
 
 .PHONY: cycle
 cycle: destroy apply plan
@@ -98,3 +105,7 @@ full_suite:
 		 exit 1; \
 		esac; \
 	done;)
+
+.PHONY: push
+push:
+	@(git push -u ${GIT_ORIGIN} `git branch --show-current`)

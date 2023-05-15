@@ -144,6 +144,12 @@ variable "is_managed" {
   default     = false
 }
 
+variable "has_binding" {
+  type        = bool
+  description = "[Optional] Should the role binding be created?"
+  default     = false
+}
+
 variable "tags" {
   type        = map(any)
   description = "[Optional] Provide a Map of Tags to associate with the environment"
