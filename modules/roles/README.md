@@ -88,6 +88,7 @@ _Note: When the identifier variable is not provided, the module will automatical
 | project_id | [Optional] Provide an project reference ID. Must exist before execution | string | null | |
 | description | [Optional]  Description of the resource. | string | Harness Resource Group created via Terraform | |
 | role_permissions | [Optional] (Set of String) List of the permission identifiers | list | [] | |
+| case_sensitive | [Optional] Should identifiers be case sensitive by default? (Note: Setting this value to `true` will retain the case sensitivity of the identifier) | bool | false | |
 | tags | [Optional] Provide a Map of Tags to associate with the project | map(any) | {} | |
 | global_tags | [Optional] Provide a Map of Tags to associate with the project and resources created | map(any) | {} | |
 

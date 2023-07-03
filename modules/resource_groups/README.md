@@ -95,6 +95,7 @@ _Note: When the identifier variable is not provided, the module will automatical
 | color | [Optional]  Color of the Environment. | string | _Automatically selected if no value provided_ | |
 | resource_group_scopes | [Optional] (List of Maps) The scope levels at which this role can be used. See Schema Below | list(object) | [] |  |
 | resource_group_filters | [Optional] (List of Maps) The resource group filters to apply. See Schema Below | list(object) | [] | |
+| case_sensitive | [Optional] Should identifiers be case sensitive by default? (Note: Setting this value to `true` will retain the case sensitivity of the identifier) | bool | false | |
 | tags | [Optional] Provide a Map of Tags to associate with the project | map(any) | {} | |
 | global_tags | [Optional] Provide a Map of Tags to associate with the project and resources created | map(any) | {} | |
 

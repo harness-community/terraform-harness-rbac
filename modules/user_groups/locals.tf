@@ -20,11 +20,7 @@ locals {
     local.required_tags
   ])
 
-  fmt_identifier = (
-    var.identifier == null
-    ?
-    (
-      lower(
+  auto_identifier = (
         replace(
           replace(
             var.name,
@@ -34,7 +30,17 @@ locals {
           "-",
           "_"
         )
-      )
+  )
+
+  fmt_identifier = (
+    var.identifier == null
+    ?
+    (
+      var.case_sensitive
+      ?
+      local.auto_identifier
+      :
+      lower(local.auto_identifier)
     )
     :
     var.identifier
