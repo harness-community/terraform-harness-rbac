@@ -77,8 +77,8 @@ _Note: When the identifier variable is not provided, the module will automatical
 
 | Name | Description | Type | Default Value | Mandatory |
 | --- | --- | --- | --- | --- |
-| name | [Required]  Name of the resource. | string |  | X |
-| identifier | [Optional] Provide a custom identifier.  More than 2 but less than 128 characters and can only include alphanumeric or '_' | string | null | |
+| name | [Required] Provide a resource name. Must be at least 1 character but but less than 128 characters | string | | X |
+| identifier | [Optional] Provide a custom identifier.  Must be at least 1 character but but less than 128 characters and can only include alphanumeric or '_' | string | null | |
 | organization_id | [Optional] Provide an organization reference ID. Must exist before execution | string | null | |
 | project_id | [Optional] Provide an project reference ID. Must exist before execution | string | null | |
 | description | [Optional]  Description of the resource. | string | Harness Resource Group created via Terraform | |
