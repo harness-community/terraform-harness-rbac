@@ -7,12 +7,12 @@ locals {
   user_group_outputs = flatten([
     {
       test                = true
-      minimum             = module.user_groups_minimal.user_group_details
-      minimal_org         = module.user_groups_minimal_org.user_group_details
-      minimal_account     = module.user_groups_minimal_account.user_group_details
-      email_membership    = module.user_groups_email_membership.user_group_details
-      username_membership = module.user_groups_username_membership.user_group_details
-      role_binding        = module.user_groups_role_binding.user_group_details
+      minimum             = module.user_groups_minimal.details
+      minimal_org         = module.user_groups_minimal_org.details
+      minimal_account     = module.user_groups_minimal_account.details
+      email_membership    = module.user_groups_email_membership.details
+      username_membership = module.user_groups_username_membership.details
+      role_binding        = module.user_groups_role_binding.details
     }
   ])
 }
