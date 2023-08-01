@@ -15,6 +15,8 @@ _Note: The list of supported Terraform Versions is based on the most recent of e
     - v1.5.0
     - v1.5.1
     - v1.5.2
+    - v1.5.3
+    - v1.5.4
 
 _Note: Terraform version 1.4.1 will not work due to an issue with the Random provider_
 
@@ -123,7 +125,6 @@ _Note: When the identifier variable is not provided, the module will automatical
 | Name | Description | Value |
 | --- | --- | --- |
 | details | Details for the created Harness resource group | Map containing details of created resource group
-| resource_group_details | [Deprecated] Details for the created Harness resource group | Map containing details of created resource group
 
 ## Examples
 ### Build a single Resource Group with minimal inputs at account level

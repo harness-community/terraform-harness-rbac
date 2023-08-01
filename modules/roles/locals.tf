@@ -60,24 +60,29 @@ locals {
     "account"
   ])
 
+  permission_statuses = [
+    "ACTIVE",
+    "EXPERIMENTAL"
+  ]
+
   # ~ ROLE MANAGEMENT ~
   # Generate Local lists of all permissions and their scope
   global_permission_identifiers = sort(compact(flatten([
     for permission in data.harness_platform_permissions.current.permissions : [
       permission.identifier
-    ] if permission.status == "ACTIVE"
+    ] if contains(local.permission_statuses, permission.status)
   ])))
 
   organization_permission_identifiers = sort(compact(flatten([
     for permission in data.harness_platform_permissions.current.permissions : [
       permission.identifier
-    ] if permission.status == "ACTIVE" && contains(permission.allowed_scope_levels, "organization")
+    ] if contains(local.permission_statuses, permission.status) && contains(permission.allowed_scope_levels, "organization")
   ])))
 
   project_permission_identifiers = sort(compact(flatten([
     for permission in data.harness_platform_permissions.current.permissions : [
       permission.identifier
-    ] if permission.status == "ACTIVE" && contains(permission.allowed_scope_levels, "project")
+    ] if contains(local.permission_statuses, permission.status) && contains(permission.allowed_scope_levels, "project")
   ])))
 
   invalid_global_permissions = compact(flatten([

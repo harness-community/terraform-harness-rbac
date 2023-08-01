@@ -15,6 +15,8 @@ _Note: The list of supported Terraform Versions is based on the most recent of e
     - v1.5.0
     - v1.5.1
     - v1.5.2
+    - v1.5.3
+    - v1.5.4
 
 _Note: Terraform version 1.4.1 will not work due to an issue with the Random provider_
 
@@ -93,7 +95,6 @@ terraform {
 | Name | Description | Value |
 | --- | --- | --- |
 | details | Details for the created Harness user account | Map containing details of created user account
-| user_account_details | [Deprecated] Details for the created Harness user account | Map containing details of created user account
 
 ## Examples
 ### Build a single User Account at account level

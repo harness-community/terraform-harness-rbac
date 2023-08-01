@@ -6,13 +6,13 @@
 locals {
   resource_group_outputs = flatten([
     {
-      minimum               = module.resource_groups_minimal.resource_group_details
-      minimal_org_level     = module.resource_groups_minimal_org_level.resource_group_details
-      minimal_account_level = module.resource_groups_minimal_account_level.resource_group_details
-      custom_scope_single   = module.resource_groups_custom_scope_single.resource_group_details
-      custom_scope          = module.resource_groups_custom_scope.resource_group_details
-      custom_scope_project  = module.resource_groups_custom_scope_project.resource_group_details
-      custom_scope_org      = module.resource_groups_custom_scope_org.resource_group_details
+      minimum               = module.resource_groups_minimal.details
+      minimal_org_level     = module.resource_groups_minimal_org_level.details
+      minimal_account_level = module.resource_groups_minimal_account_level.details
+      custom_scope_single   = module.resource_groups_custom_scope_single.details
+      custom_scope          = module.resource_groups_custom_scope.details
+      custom_scope_project  = module.resource_groups_custom_scope_project.details
+      custom_scope_org      = module.resource_groups_custom_scope_org.details
     }
   ])
 }

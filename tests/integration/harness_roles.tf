@@ -6,10 +6,10 @@
 locals {
   role_outputs = flatten([
     {
-      minimum            = module.roles_minimal.role_details
-      minimal_org        = module.roles_minimal_org.role_details
-      minimal_account    = module.roles_minimal_account.role_details
-      custom_permissions = module.roles_minimal_custom_permissions.role_details
+      minimum            = module.roles_minimal.details
+      minimal_org        = module.roles_minimal_org.details
+      minimal_account    = module.roles_minimal_account.details
+      custom_permissions = module.roles_minimal_custom_permissions.details
     }
   ])
 }
